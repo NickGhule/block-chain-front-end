@@ -49,13 +49,14 @@ function FeaturesSelector({ onChange = () => {}, onSubmit }) {
       </div>
       <div className="label">Enter Document Values</div>
       <div className="input-wrapper">
-        <img src={`${process.env.PUBLIC_URL}/images/icons/note.svg`} />
+        {/* <img src={`${process.env.PUBLIC_URL}/images/icons/note.svg`} /> */}
         <input
           value={inputKeyValue}
           onChange={(e) =>
             inputKeyValue.length < 60 && setInputKeyValue(e.target.value)
           }
         />
+        <div className="separator">:</div>
         <input
           value={inputValue}
           onChange={(e) =>
@@ -89,7 +90,7 @@ function FeaturesSelector({ onChange = () => {}, onSubmit }) {
           })
         }
       >
-        Submit
+        Issue
       </div>
     </FeaturesSelectorStyle>
   );
@@ -98,6 +99,9 @@ function FeaturesSelector({ onChange = () => {}, onSubmit }) {
 export default FeaturesSelector;
 
 export const FeaturesSelectorStyle = styled.div`
+  background: #fbd59f73;
+  margin: 2rem;
+  padding: 2rem;
   .label {
     margin: 1rem 0;
   }
@@ -114,8 +118,15 @@ export const FeaturesSelectorStyle = styled.div`
   }
   .input-wrapper {
     display: flex;
+    align-items: center;
+    line-height: 60px;
     img {
       margin: 0 0.4rem;
+    }
+
+    .separator {
+      font-size: 1.7rem;
+      margin: 1rem;
     }
     .btn {
       margin-left: 1rem;
@@ -123,7 +134,8 @@ export const FeaturesSelectorStyle = styled.div`
       line-height: 26px;
     }
     input {
-      margin-right: 1rem;
+      /* margin-right: 1rem; */
+      padding: 0.5rem;
     }
   }
   .features {
@@ -139,8 +151,9 @@ export const FeaturesSelectorStyle = styled.div`
     /* border: 1px solid rgba(0, 0, 0, 0.4); */
     margin: 0.5rem 0;
     padding: 0.1rem;
+    padding-right: 1rem;
     border-radius: 5px;
-    background-color: white;
+    background: white;
 
     .texts {
       width: 100%;
@@ -160,14 +173,16 @@ export const FeaturesSelectorStyle = styled.div`
     }
     .close {
       color: tomato;
-      font-weight: 400;
-      transform: scaleY(0.8);
-      padding: 0.2rem;
+      font-weight: 600;
+      transform: scaleY(0.9);
+      padding: 0.5rem;
       cursor: pointer;
     }
   }
 
   .submit {
     margin: 1rem 0;
+    margin-left: 75%;
+    /* float: right; */
   }
 `;

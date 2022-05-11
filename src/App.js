@@ -4,61 +4,62 @@ import FeaturesSelector from "./Components/FeaturesSelector";
 import Navigation from "./Components/Navigation";
 import styledComponents from "styled-components";
 import { useEffect, useState } from "react";
-import UserSection from "./Components/UserSection";
+import DocumentViewerSection from "./Components/DocumentViewerSection";
+import { useData } from "./AppContext";
+import DocumentHistory from "./Components/DocumentHistory";
+import { Buttons } from "./Components/EditSection";
 
 function App() {
-  const docs_temp = [
-    { name: "chaitanya", id: "2332432", doc: "this is some doc" },
-    { name: "omkar", id: "233e432", doc: "this is some doc" },
-    { name: "abhi", id: "2331232", doc: "this is some doc" },
-    { name: "nick", id: "2336432", doc: "this is some doc" },
-    { name: "nick", id: "2336432", doc: "this is some doc" },
-    { name: "nick", id: "2336432", doc: "this is some doc" },
-    { name: "nick", id: "233123132", doc: "this is some doc" },
-    { name: "nick", id: "23323532432", doc: "this is some doc" },
-  ];
-
-  const [docs, setDocs] = useState([]);
-  const [selectedUserId, setSelectedUserId] = useState("2332432");
-
-  useEffect(() => {
-    fetch("http://127.0.0.1:5000/docs").then((response) =>
-      console.log(response)
-    );
-    setDocs(docs_temp);
-  }, []);
+  const { data, selectedDocId, setSelectedDocId } = useData();
 
   return (
     <AppStyle>
-      {docs.length > 0 && (
-        <>
-          <Navigation
-            users={docs}
-            selectedUserId={selectedUserId}
-            onUserCardClick={(id) => setSelectedUserId(id)}
+      <Navigation
+        docs={data}
+        selectedDocId={selectedDocId}
+        onDocumentCardClick={(id) => setSelectedDocId(id)}
+      />
+      <div className="right">
+        <div className="top">
+          <DocumentViewerSection
+            document={data.find((doc) => doc.id == selectedDocId)}
           />
-          <UserSection
-            user={
-              docs.find((user) => user.id == selectedUserId)
-                ? docs.find((user) => user.id == selectedUserId)
-                : {
-                    name: "name",
-                    doc: "doc",
-                  }
-            }
-            userType={"Viewer"}
-          />
-        </>
-      )}
+        </div>
+        <div className="bottom">
+          <DocumentHistory />
+          <Buttons />
+        </div>
+      </div>
     </AppStyle>
   );
 }
 
 const AppStyle = styledComponents.main`
+height: 100vh;
 background: var(--clr-light-grey);
   display:grid;
   grid-template-columns: auto 1fr;
-    
+    .right{
+      display: grid;
+      grid-template-rows: 4fr 2fr;
+
+      .top{
+        min-width: 800px;
+        max-width: 900px;
+        margin: auto;
+        // border: 2px solid dodger;
+        height: 60vh;
+        overflow: auto;
+      }
+      .bottom{
+        max-width: 800px;
+        margin-inline: auto;
+        background: white;
+        display: grid;
+        grid-template-columns: 4fr 2fr;
+        height: 30vh;
+      }
+    }
 `;
 
 export default App;

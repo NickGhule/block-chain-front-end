@@ -13,7 +13,7 @@ const InputSections = ({ onDoneClick }) => (
   </InputSectionStyle>
 );
 
-const Buttons = ({ onShareClick, onVarify, isVarifier }) => (
+export const Buttons = ({ onShareClick, onVarify, isVarifier }) => (
   <ButtonsStyle>
     {isVarifier ? (
       <div className="btn" onClick={onVarify}>
@@ -21,7 +21,7 @@ const Buttons = ({ onShareClick, onVarify, isVarifier }) => (
       </div>
     ) : (
       <>
-        <div className="btn">Request Edit</div>
+        <div className="btn">Edit</div>
         <div className="btn" onClick={onShareClick}>
           Share
         </div>

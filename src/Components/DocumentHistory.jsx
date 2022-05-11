@@ -1,14 +1,13 @@
 import React from "react";
 import styledComponents from "styled-components";
+import Stepper from "./Stepper";
 
 function DocumentHistory(props) {
   const history = ["20 sep 2020", "20 sep 2020", "20 sep 2020"];
 
   return (
     <DocumentHistoryStyle>
-      {history.map((date) => (
-        <div className="history">{date}</div>
-      ))}
+      <Stepper steps={history} />
     </DocumentHistoryStyle>
   );
 }
@@ -16,9 +15,6 @@ function DocumentHistory(props) {
 export default DocumentHistory;
 
 const DocumentHistoryStyle = styledComponents.section`
-
- .history{
-     margin: 1rem;
- }
+    padding: 2rem;
 
 `;

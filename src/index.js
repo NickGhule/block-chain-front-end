@@ -4,11 +4,14 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import Router from "./Router";
+import { AppContextProvider } from "./AppContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   // <React.StrictMode>
-  <Router />
+  <AppContextProvider>
+    <Router />
+  </AppContextProvider>
   // </React.StrictMode>
 );
 

@@ -1,22 +1,21 @@
 import React from "react";
 import styledComponents from "styled-components";
 
-function UserCard({ name, id, doc, isSelected, onUserCardClick }) {
+function DocumentCard({ doc, isSelected, onUserCardClick }) {
+  console.log(doc);
   return (
-    <UserCardStyle
+    <DocumentCardStyle
       style={{
         border: isSelected ? "2px solid blue" : "2px solid transparent",
       }}
-      onClick={() => onUserCardClick(id)}
+      onClick={() => onUserCardClick(doc.id)}
     >
-      <div className="name">{name}</div>
-      {/* <div className="id">{id}</div> */}
-      {/* <div className="doc">{doc}</div> */}
-    </UserCardStyle>
+      <div className="name">{doc.docName}</div>
+    </DocumentCardStyle>
   );
 }
 
-const UserCardStyle = styledComponents.div`
+const DocumentCardStyle = styledComponents.div`
     
 
 background-color: white;
@@ -34,4 +33,4 @@ cursor: pointer;
 
 `;
 
-export default UserCard;
+export default DocumentCard;

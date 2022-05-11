@@ -3,6 +3,9 @@
   --clr-primary: #f85220;
   --clr-text: #484848;
 }
+body{
+  font-family: 'Montserrat', sans-serif;
+}
 
 .btn {
   padding: 0.4rem 1rem;

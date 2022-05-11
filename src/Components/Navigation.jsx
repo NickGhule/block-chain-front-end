@@ -1,17 +1,16 @@
 import React from "react";
 import styledComponents from "styled-components";
-import UserCard from "./UserCard";
+import DocumentCard from "./DocumentCard";
 
-function Navigation({ users, selectedUserId, onUserCardClick }) {
+function Navigation({ docs, selectedDocId, onDocumentCardClick }) {
   return (
     <NavigationStyle>
-      {users.map((user) => (
-        <UserCard
-          name={user?.name}
-          id={user?.id}
-          doc={user?.doc}
-          isSelected={user?.id == selectedUserId}
-          onUserCardClick={onUserCardClick}
+      {docs.map((doc) => (
+        <DocumentCard
+          key={doc.id}
+          doc={doc}
+          isSelected={doc.id == selectedDocId}
+          onUserCardClick={onDocumentCardClick}
         />
       ))}
     </NavigationStyle>
@@ -21,7 +20,6 @@ function Navigation({ users, selectedUserId, onUserCardClick }) {
 export default Navigation;
 
 const NavigationStyle = styledComponents.nav`
-
  width: 300px;
  color: white;
  height: 100vh;
