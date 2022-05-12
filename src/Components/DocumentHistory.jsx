@@ -7,6 +7,7 @@ function DocumentHistory(props) {
 
   return (
     <DocumentHistoryStyle>
+      <div className="history-title">Edit History</div>
       <Stepper steps={history} />
     </DocumentHistoryStyle>
   );
@@ -15,6 +16,11 @@ function DocumentHistory(props) {
 export default DocumentHistory;
 
 const DocumentHistoryStyle = styledComponents.section`
-    padding: 2rem;
+    padding: 1rem 2rem;
+    .history-title{
+      padding-bottom: 1rem ;
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
 
 `;

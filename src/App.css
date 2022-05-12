@@ -17,3 +17,27 @@ body{
   border-radius: 3px;
   width: fit-content;
 }
+
+
+
+/* width */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+  cursor: pointer;
+}
+
+/* Track */
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Handle */
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #48504f9c;
+  border-radius: 2px;
+}
+
+/* Handle on hover */
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #9b9a9a;
+}

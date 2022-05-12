@@ -5,7 +5,7 @@ export const AppContext = createContext();
 const temp_data = [
   {
     id: 1,
-    docName: "one",
+    docName: "Document one",
     date: "10/05/2022",
     details: [
       { attr1: "value" },
@@ -17,8 +17,8 @@ const temp_data = [
   },
   {
     id: 2,
-    docName: "two",
-    date: "10/05/2022",
+    docName: "Aadhar Card ID",
+    date: "14/05/2022",
     details: [
       { attr1: "value" },
       { attr2: "value" },

@@ -7,7 +7,11 @@ import DocumentViewerSection from "../Components/DocumentViewerSection";
 import { useData } from "../AppContext";
 
 function Varifier() {
-  const { data, selectedDocId, setSelectedDocId } = useData();
+  const { data, selectedDocId, setSelectedDocId, setData } = useData();
+
+  const handleVarify = () => {
+    alert("handle varify");
+  };
 
   return (
     <AppStyle>
@@ -24,7 +28,7 @@ function Varifier() {
         </div>
         <div className="bottom">
           <DocumentHistory />
-          <Buttons isVarifier />
+          <Buttons isVarifier onVarify={handleVarify} />
         </div>
       </div>
     </AppStyle>

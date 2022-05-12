@@ -10,7 +10,11 @@ import DocumentHistory from "./Components/DocumentHistory";
 import { Buttons } from "./Components/EditSection";
 
 function App() {
-  const { data, selectedDocId, setSelectedDocId } = useData();
+  const { data, selectedDocId, setSelectedDocId, setData } = useData();
+
+  const handleShare = () => {
+    alert("handle share");
+  };
 
   return (
     <AppStyle>
@@ -20,14 +24,14 @@ function App() {
         onDocumentCardClick={(id) => setSelectedDocId(id)}
       />
       <div className="right">
-        <div className="top">
+        <div className="top custom-scrollbar">
           <DocumentViewerSection
             document={data.find((doc) => doc.id == selectedDocId)}
           />
         </div>
         <div className="bottom">
           <DocumentHistory />
-          <Buttons />
+          <Buttons onShareClick={handleShare} />
         </div>
       </div>
     </AppStyle>
@@ -44,14 +48,17 @@ background: var(--clr-light-grey);
       grid-template-rows: 4fr 2fr;
 
       .top{
+        box-shadow: 1px 1px 4px rgba(0,0,0,0.3);
         min-width: 800px;
         max-width: 900px;
         margin: auto;
         // border: 2px solid dodger;
         height: 60vh;
         overflow: auto;
+
       }
       .bottom{
+        box-shadow: 1px 1px 4px rgba(0,0,0,0.3);
         max-width: 800px;
         margin-inline: auto;
         background: white;
