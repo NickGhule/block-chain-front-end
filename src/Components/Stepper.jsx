@@ -1,8 +1,16 @@
 import React, { useState } from "react";
+import { useEffect } from "react";
 import styledComponents from "styled-components";
+import { useData } from "../AppContext";
 
 function Stepper({ steps = [1, 2, 3], _activeStepIndex = 1, handleStepClick }) {
+  const { selectedHistoryIndex } = useData();
   const [activeStepIndex, setActiveStepIndex] = useState(0);
+
+  useEffect(() => {
+    setActiveStepIndex(selectedHistoryIndex);
+  }, [selectedHistoryIndex]);
+
   return (
     <StepperStyle>
       {steps.map((step, index) => (

@@ -62,6 +62,9 @@ const temp_data = {
 export const AppContextProvider = ({ children }) => {
   const [data, setData] = useState(temp_data);
   const [selectedDoc, setSelectedDoc] = useState(temp_data["test"]);
+  const [selectedHistoryIndex, setSelectedHistoryIndex] = useState(0);
+  const [loading, setLoading] = useState(false);
+
   return (
     <AppContext.Provider
       value={{
@@ -69,6 +72,10 @@ export const AppContextProvider = ({ children }) => {
         data,
         selectedDoc,
         setSelectedDoc,
+        selectedHistoryIndex,
+        setSelectedHistoryIndex,
+        loading,
+        setLoading,
       }}
     >
       {children}
@@ -77,11 +84,25 @@ export const AppContextProvider = ({ children }) => {
 };
 
 export const useData = () => {
-  const { setData, data, selectedDoc, setSelectedDoc } = useContext(AppContext);
+  const {
+    setData,
+    data,
+    selectedDoc,
+    setSelectedDoc,
+    selectedHistoryIndex,
+    setSelectedHistoryIndex,
+    loading,
+    setLoading,
+  } = useContext(AppContext);
+
   return {
     setData,
     data,
     selectedDoc,
     setSelectedDoc,
+    selectedHistoryIndex,
+    setSelectedHistoryIndex,
+    loading,
+    setLoading,
   };
 };

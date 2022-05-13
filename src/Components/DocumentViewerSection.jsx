@@ -5,9 +5,10 @@ import EditSection from "./EditSection";
 import UserForm from "./UserForm";
 
 function DocumentViewerSection() {
-  const { selectedDoc } = useData();
-  const document = selectedDoc[0];
-  return (
+  const { selectedDoc, selectedHistoryIndex } = useData();
+  console.log(selectedHistoryIndex);
+  const document = selectedDoc[selectedHistoryIndex];
+  return document ? (
     <DocumentViewerSectionStyle>
       <div className="wrapper">
         <div className="name">{document.documentName}</div>
@@ -34,15 +35,17 @@ function DocumentViewerSection() {
             </div>
           </div>
         </div>
-        <div className="shared-users">
+        {/* <div className="shared-users">
           <div className="title">Shared With</div>
           <div className="users">
             <div className="user">chaitanya360</div>
             <div className="user">omkar12</div>
           </div>
-        </div>
+        </div> */}
       </div>
     </DocumentViewerSectionStyle>
+  ) : (
+    <>No Document Selected</>
   );
 }
 

@@ -2,7 +2,8 @@ import React from "react";
 import styledComponents from "styled-components";
 import DocumentCard from "./DocumentCard";
 
-function Navigation({ docs, selectedDocId, onDocumentCardClick }) {
+function Navigation({ docs, selectedDocId, onDocumentCardClick, isVerifier }) {
+  console.log(isVerifier);
   return (
     <NavigationStyle>
       {Object.keys(docs).map((docName) => {
@@ -13,6 +14,7 @@ function Navigation({ docs, selectedDocId, onDocumentCardClick }) {
             doc={doc}
             isSelected={doc[0]._id == selectedDocId}
             onUserCardClick={onDocumentCardClick}
+            isVerifier={isVerifier}
           />
         );
       })}

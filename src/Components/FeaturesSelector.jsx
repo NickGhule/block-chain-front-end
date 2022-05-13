@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
-function FeaturesSelector({ onChange = () => {}, onSubmit }) {
-  const [features, setFeatures] = useState([]);
+function FeaturesSelector({
+  onChange = () => {},
+  onSubmit,
+  features,
+  setFeatures,
+}) {
   const [inputKeyValue, setInputKeyValue] = useState("");
   const [inputValue, setInputValue] = useState("");
 
@@ -99,7 +103,8 @@ function FeaturesSelector({ onChange = () => {}, onSubmit }) {
 export default FeaturesSelector;
 
 export const FeaturesSelectorStyle = styled.div`
-  background: #fbd59f73;
+  background: white;
+  box-shadow: 1px 0px 3px rgba(0, 0, 0, 0.3);
   margin: 2rem;
   padding: 2rem;
   .label {

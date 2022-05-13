@@ -1,34 +1,111 @@
+import logo from "../logo.svg";
 import "../App.css";
-import styledComponents from "styled-components";
+import FeaturesSelector from "../Components/FeaturesSelector";
 import Navigation from "../Components/Navigation";
-import { Buttons } from "../Components/EditSection";
-import DocumentHistory from "../Components/DocumentHistory";
+import styledComponents from "styled-components";
+import { useEffect, useState } from "react";
 import DocumentViewerSection from "../Components/DocumentViewerSection";
 import { useData } from "../AppContext";
+import DocumentHistory from "../Components/DocumentHistory";
+import { Buttons } from "../Components/EditSection";
+import { parseData } from "../Components/functions";
 
 function Varifier() {
-  const { data, selectedDocId, setSelectedDocId, setData } = useData();
+  const {
+    data,
+    setData,
+    selectedDoc,
+    setSelectedDoc,
+    setSelectedHistoryIndex,
+    loading,
+    setLoading,
+  } = useData();
 
-  const handleVarify = () => {
-    alert("handle varify");
+  const handleShare = () => {
+    alert("handle share");
+  };
+
+  const fetchData = async () => {
+    var raw = "";
+
+    var requestOptions = {
+      method: "GET",
+      redirect: "follow",
+    };
+
+    setLoading(true);
+    await fetch("http://127.0.0.1:5000/verifier/chaitanya360/", requestOptions)
+      .then((response) => response.json())
+      .then((result) => {
+        const rawData = {};
+        Object.keys(result).map((key) => {
+          rawData[result[key]["_id"]["$oid"]] = [
+            {
+              ...result[key],
+            },
+          ];
+        });
+        setLoading(false);
+        console.log(rawData);
+        console.log(result);
+      })
+      .catch((error) => console.log("error", error));
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    setSelectedDoc(false);
+  }, [data]);
+
+  useEffect(() => {
+    setSelectedHistoryIndex(0);
+  }, [selectedDoc]);
+
+  console.log(selectedDoc);
+
+  const varifyDoc = () => {
+    // console.log(selectedDoc);
+    setLoading(true);
+    const userName = selectedDoc[0].userName;
+    const docName = selectedDoc[0].documentName;
+    fetch(
+      `http://127.0.0.1:5000/verifier/chaitanya360/${userName}/${docName}/verify`
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        setLoading(false);
+        if (data.varified) alert("Verified");
+        else alert("Verified");
+      });
   };
 
   return (
     <AppStyle>
+      {loading && (
+        <div className="loader-wrapper">
+          <span class="loader"></span>
+        </div>
+      )}
       <Navigation
         docs={data}
-        selectedDocId={selectedDocId}
-        onDocumentCardClick={(id) => setSelectedDocId(id)}
+        selectedDocId={selectedDoc ? selectedDoc[0]._id : false}
+        onDocumentCardClick={(doc) => setSelectedDoc(doc)}
+        isVerifier
       />
       <div className="right">
-        <div className="top">
-          <DocumentViewerSection
-            document={data.find((doc) => doc.id == selectedDocId)}
-          />
+        <div className="top custom-scrollbar">
+          {selectedDoc ? (
+            <DocumentViewerSection />
+          ) : (
+            <div className="empty-placeholder">Nothing to show</div>
+          )}
         </div>
         <div className="bottom">
-          <DocumentHistory />
-          <Buttons isVarifier onVarify={handleVarify} />
+          {/* {selectedDoc && <DocumentHistory />} */}
+          {selectedDoc && <Buttons isVarifier onVarify={varifyDoc} />}
         </div>
       </div>
     </AppStyle>
@@ -40,19 +117,29 @@ height: 100vh;
 background: var(--clr-light-grey);
   display:grid;
   grid-template-columns: auto 1fr;
+
+  .empty-placeholder{
+    padding: 1rem;
+    text-align: center;
+    width: 90%;
+    font-size: 1.3rem;
+    font-weight: 600;
+  }
     .right{
       display: grid;
       grid-template-rows: 4fr 2fr;
 
       .top{
+        box-shadow: 1px 1px 4px rgba(0,0,0,0.3);
         min-width: 800px;
         max-width: 900px;
         margin: auto;
-        border: 2px solid tomato;
-        height: 60vh;
+        // border: 2px solid dodger;
         overflow: auto;
+
       }
       .bottom{
+        box-shadow: 1px 1px 4px rgba(0,0,0,0.3);
         max-width: 800px;
         margin-inline: auto;
         background: white;

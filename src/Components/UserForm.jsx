@@ -2,10 +2,14 @@ import React from "react";
 import styledComponents from "styled-components";
 import FeaturesSelector from "./FeaturesSelector";
 
-function UserForm({ onSubmit }) {
+function UserForm({ onSubmit, features, setFeatures }) {
   return (
     <UserFormStyle>
-      <FeaturesSelector onSubmit={onSubmit} />
+      <FeaturesSelector
+        onSubmit={onSubmit}
+        features={features}
+        setFeatures={setFeatures}
+      />
     </UserFormStyle>
   );
 }

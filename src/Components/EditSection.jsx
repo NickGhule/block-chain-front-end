@@ -17,7 +17,7 @@ export const Buttons = ({ onShareClick, onVarify, isVarifier }) => (
   <ButtonsStyle>
     {isVarifier ? (
       <div className="btn" onClick={onVarify}>
-        Varify
+        Verify
       </div>
     ) : (
       <>

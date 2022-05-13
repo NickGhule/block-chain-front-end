@@ -11,13 +11,33 @@ import { Buttons } from "./Components/EditSection";
 import { parseData } from "./Components/functions";
 
 function App() {
-  const { data, setData, selectedDoc, setSelectedDoc } = useData();
+  const {
+    data,
+    setData,
+    selectedDoc,
+    setSelectedDoc,
+    setSelectedHistoryIndex,
+    loading,
+    setLoading,
+  } = useData();
 
   const handleShare = () => {
-    alert("handle share");
+    setLoading(true);
+    const from = selectedDoc[0].userName;
+    const to = "chaitanya360";
+    const docName = selectedDoc[0].documentName;
+
+    fetch(`http://127.0.0.1:5000/view/${from}/${to}/${docName}/share`)
+      .then((response) => response.json())
+      .then((data) => {
+        setLoading(false);
+        if (data.status) alert("share success");
+        else alert("share failed");
+      });
   };
 
   const fetchData = async () => {
+    setLoading(true);
     var raw = "";
 
     var requestOptions = {
@@ -28,6 +48,7 @@ function App() {
     await fetch("http://127.0.0.1:5000/view/nickghule/", requestOptions)
       .then((response) => response.json())
       .then((result) => {
+        setLoading(false);
         setData(result);
       })
       .catch((error) => console.log("error", error));
@@ -41,10 +62,19 @@ function App() {
     setSelectedDoc(false);
   }, [data]);
 
+  useEffect(() => {
+    setSelectedHistoryIndex(0);
+  }, [selectedDoc]);
+
   console.log(selectedDoc);
 
   return (
     <AppStyle>
+      {loading && (
+        <div className="loader-wrapper">
+          <span class="loader"></span>
+        </div>
+      )}
       <Navigation
         docs={data}
         selectedDocId={selectedDoc ? selectedDoc[0]._id : false}
@@ -52,11 +82,17 @@ function App() {
       />
       <div className="right">
         <div className="top custom-scrollbar">
-          {selectedDoc && <DocumentViewerSection />}
+          {selectedDoc ? (
+            <DocumentViewerSection />
+          ) : (
+            <div className="empty-placeholder">
+              Select Document First to View
+            </div>
+          )}
         </div>
         <div className="bottom">
-          {/* <DocumentHistory /> */}
-          <Buttons onShareClick={handleShare} />
+          {selectedDoc && <DocumentHistory />}
+          {selectedDoc && <Buttons onShareClick={handleShare} />}
         </div>
       </div>
     </AppStyle>
@@ -68,6 +104,14 @@ height: 100vh;
 background: var(--clr-light-grey);
   display:grid;
   grid-template-columns: auto 1fr;
+
+  .empty-placeholder{
+    padding: 1rem;
+    text-align: center;
+    width: 90%;
+    font-size: 1.3rem;
+    font-weight: 600;
+  }
     .right{
       display: grid;
       grid-template-rows: 4fr 2fr;
@@ -78,7 +122,6 @@ background: var(--clr-light-grey);
         max-width: 900px;
         margin: auto;
         // border: 2px solid dodger;
-        height: 60vh;
         overflow: auto;
 
       }
