@@ -8,9 +8,9 @@ function DocumentCard({ doc, isSelected, onUserCardClick }) {
       style={{
         border: isSelected ? "2px solid blue" : "2px solid transparent",
       }}
-      onClick={() => onUserCardClick(doc.id)}
+      onClick={() => onUserCardClick(doc)}
     >
-      <div className="name">{doc.docName}</div>
+      <div className="name">{doc[0].documentName}</div>
     </DocumentCardStyle>
   );
 }

@@ -8,29 +8,54 @@ import DocumentViewerSection from "./Components/DocumentViewerSection";
 import { useData } from "./AppContext";
 import DocumentHistory from "./Components/DocumentHistory";
 import { Buttons } from "./Components/EditSection";
+import { parseData } from "./Components/functions";
 
 function App() {
-  const { data, selectedDocId, setSelectedDocId, setData } = useData();
+  const { data, setData, selectedDoc, setSelectedDoc } = useData();
 
   const handleShare = () => {
     alert("handle share");
   };
 
+  const fetchData = async () => {
+    var raw = "";
+
+    var requestOptions = {
+      method: "GET",
+      redirect: "follow",
+    };
+
+    await fetch("http://127.0.0.1:5000/view/nickghule/", requestOptions)
+      .then((response) => response.json())
+      .then((result) => {
+        setData(result);
+      })
+      .catch((error) => console.log("error", error));
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    setSelectedDoc(false);
+  }, [data]);
+
+  console.log(selectedDoc);
+
   return (
     <AppStyle>
       <Navigation
         docs={data}
-        selectedDocId={selectedDocId}
-        onDocumentCardClick={(id) => setSelectedDocId(id)}
+        selectedDocId={selectedDoc ? selectedDoc[0]._id : false}
+        onDocumentCardClick={(doc) => setSelectedDoc(doc)}
       />
       <div className="right">
         <div className="top custom-scrollbar">
-          <DocumentViewerSection
-            document={data.find((doc) => doc.id == selectedDocId)}
-          />
+          {selectedDoc && <DocumentViewerSection />}
         </div>
         <div className="bottom">
-          <DocumentHistory />
+          {/* <DocumentHistory /> */}
           <Buttons onShareClick={handleShare} />
         </div>
       </div>

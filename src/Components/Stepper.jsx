@@ -1,14 +1,17 @@
 import React, { useState } from "react";
 import styledComponents from "styled-components";
 
-function Stepper({ steps = [1, 2, 3], _activeStepIndex = 1 }) {
-  const [activeStepIndex, setActiveStepIndex] = useState(1);
+function Stepper({ steps = [1, 2, 3], _activeStepIndex = 1, handleStepClick }) {
+  const [activeStepIndex, setActiveStepIndex] = useState(0);
   return (
     <StepperStyle>
       {steps.map((step, index) => (
         <div
           class={activeStepIndex == index ? "step step-active" : "step"}
-          onClick={() => setActiveStepIndex(index)}
+          onClick={() => {
+            setActiveStepIndex(index);
+            handleStepClick(index);
+          }}
         >
           <div>
             <div class="circle">

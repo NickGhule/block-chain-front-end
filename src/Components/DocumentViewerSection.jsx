@@ -1,31 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
 import styledComponents from "styled-components";
+import { useData } from "../AppContext";
 import EditSection from "./EditSection";
 import UserForm from "./UserForm";
 
-function DocumentViewerSection({ document }) {
+function DocumentViewerSection() {
+  const { selectedDoc } = useData();
+  const document = selectedDoc[0];
   return (
     <DocumentViewerSectionStyle>
       <div className="wrapper">
-        <div className="name">{document.docName}</div>
+        <div className="name">{document.documentName}</div>
         <div className="date-wrapper">
           <div className="title">Issue Date</div>
-          <div className="date">{document.date}</div>
+          <div className="date">{document.timestamp.$date}</div>
         </div>
         <div className="fields-wrapper">
           <div className="title">Fields</div>
           <div className="fields">
             <div className="field">
               <table>
-                {document.details.map((field) => (
+                {Object.keys(document.documentData).map((key) => (
                   <tr>
                     <td>
-                      <div className="key">{Object.keys(field)[0]}</div>
+                      <div className="key">{key}</div>
                     </td>
                     <td>
-                      <div className="value">
-                        {field[Object.keys(field)[0]]}
-                      </div>
+                      <div className="value">{document.documentData[key]}</div>
                     </td>
                   </tr>
                 ))}
@@ -68,6 +69,8 @@ flex-direction: column;
 
 .name{
   // background: #8000801e;
+  background: #ffc0cb3d;
+
   padding: 1rem;
   font-size: 1.6rem;
   font-weight: 600;
@@ -105,7 +108,6 @@ flex-direction: column;
   
   .shared-users{
     padding: 1rem;
-    background: #ffc0cb3d;
 
     .user{
       padding: 0.3rem 0;

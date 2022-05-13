@@ -5,14 +5,17 @@ import DocumentCard from "./DocumentCard";
 function Navigation({ docs, selectedDocId, onDocumentCardClick }) {
   return (
     <NavigationStyle>
-      {docs.map((doc) => (
-        <DocumentCard
-          key={doc.id}
-          doc={doc}
-          isSelected={doc.id == selectedDocId}
-          onUserCardClick={onDocumentCardClick}
-        />
-      ))}
+      {Object.keys(docs).map((docName) => {
+        const doc = docs[docName];
+        return (
+          <DocumentCard
+            key={doc._id}
+            doc={doc}
+            isSelected={doc[0]._id == selectedDocId}
+            onUserCardClick={onDocumentCardClick}
+          />
+        );
+      })}
     </NavigationStyle>
   );
 }

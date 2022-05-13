@@ -2,57 +2,73 @@ import { createContext, useContext, useState } from "react";
 
 export const AppContext = createContext();
 
-const temp_data = [
-  {
-    id: 1,
-    docName: "Document one",
-    date: "10/05/2022",
-    details: [
-      { attr1: "value" },
-      { attr2: "value" },
-      { attr3: "value" },
-      { attr4: "value" },
-    ],
-    shared_with: ["username1", "username2", "username2"],
-  },
-  {
-    id: 2,
-    docName: "Aadhar Card ID",
-    date: "14/05/2022",
-    details: [
-      { attr1: "value" },
-      { attr2: "value" },
-      { attr3: "value" },
-      { attr4: "value" },
-    ],
-    shared_with: ["username1", "username2", "username2"],
-  },
-  {
-    id: 3,
-    docName: "three",
-    date: "10/05/2022",
-    details: [
-      { attr1: "value" },
-      { attr2: "value" },
-      { attr3: "value" },
-      { attr4: "value" },
-    ],
-    shared_with: ["username1", "username2", "username2"],
-  },
-];
+const temp_data = {
+  "Doc 3": [
+    {
+      _id: "627cd4f30d8e9aaa07c60705",
+      documentData: {
+        Attr1: "Val 1",
+        Attr2: "Val 2",
+      },
+      documentName: "Doc 3",
+      timestamp: {
+        $date: "2022-05-03T08:06:25.759Z",
+      },
+      userName: "nickghule",
+    },
+  ],
+  "doc 2": [
+    {
+      _id: "627cc332c35ad85d4a9c80a7",
+      documentData: {
+        hiii: "55555",
+        no: "121212",
+      },
+      documentName: "doc 2",
+      timestamp: {
+        $date: "2022-05-13T08:06:25.759Z",
+      },
+      userName: "nickghule",
+    },
+  ],
+  test: [
+    {
+      _id: "62709529f3b89ef4bfca24bb",
+      documentData: {
+        hiii: "55555",
+        no: "121212",
+      },
+      documentName: "test",
+      timestamp: {
+        $date: "2022-05-03T08:06:25.759Z",
+      },
+      userName: "nickghule",
+    },
+    {
+      _id: "627cc31dc35ad85d4a9c80a6",
+      documentData: {
+        hiii: "55555",
+        no: "121212",
+      },
+      documentName: "test",
+      timestamp: {
+        $date: "2022-05-13T08:06:25.759Z",
+      },
+      userName: "nickghule",
+    },
+  ],
+};
 
 export const AppContextProvider = ({ children }) => {
   const [data, setData] = useState(temp_data);
-
-  const [selectedDocId, setSelectedDocId] = useState(1);
-
+  const [selectedDoc, setSelectedDoc] = useState(temp_data["test"]);
   return (
     <AppContext.Provider
       value={{
-        data,
         setData,
-        selectedDocId,
-        setSelectedDocId,
+        data,
+        selectedDoc,
+        setSelectedDoc,
       }}
     >
       {children}
@@ -61,12 +77,11 @@ export const AppContextProvider = ({ children }) => {
 };
 
 export const useData = () => {
-  const { data, setData, selectedDocId, setSelectedDocId } =
-    useContext(AppContext);
+  const { setData, data, selectedDoc, setSelectedDoc } = useContext(AppContext);
   return {
-    data,
     setData,
-    selectedDocId,
-    setSelectedDocId,
+    data,
+    selectedDoc,
+    setSelectedDoc,
   };
 };
