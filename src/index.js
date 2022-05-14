@@ -10,13 +10,13 @@ import RouterWrapper from "./RouterWrapper";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  // <React.StrictMode>
+  <React.StrictMode>
   <AppContextProvider>
     {/* <Router /> */}
     {/* <Auth /> */}
     <RouterWrapper />
   </AppContextProvider>
-  // </React.StrictMode>
+  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

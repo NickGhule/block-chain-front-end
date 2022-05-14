@@ -9,6 +9,7 @@ import { useData } from "./AppContext";
 import DocumentHistory from "./Components/DocumentHistory";
 import { Buttons } from "./Components/EditSection";
 import { parseData } from "./Components/functions";
+import React from "react";
 
 function App() {
   const {
@@ -33,7 +34,7 @@ function App() {
         setLoading(false);
         if (data.status) alert("share success");
         else alert("share failed");
-      });
+      }).catch((error) => { console.log(error); });
   };
 
   const fetchData = async () => {
