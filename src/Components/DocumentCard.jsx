@@ -2,7 +2,6 @@ import React from "react";
 import styledComponents from "styled-components";
 
 function DocumentCard({ doc, isSelected, onUserCardClick, isVerifier }) {
-  console.log(isVerifier);
   return (
     <DocumentCardStyle
       style={{

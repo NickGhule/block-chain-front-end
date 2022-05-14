@@ -64,6 +64,10 @@ export const AppContextProvider = ({ children }) => {
   const [selectedDoc, setSelectedDoc] = useState(temp_data["test"]);
   const [selectedHistoryIndex, setSelectedHistoryIndex] = useState(0);
   const [loading, setLoading] = useState(false);
+  // const [user, setUser] = useState({
+  //   userType: 1,
+  //   userName: "chaitanya360",
+  // });
   const [user, setUser] = useState(false);
 
   return (

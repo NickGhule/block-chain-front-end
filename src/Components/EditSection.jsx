@@ -2,16 +2,7 @@ import React, { useState } from "react";
 import styledComponents from "styled-components";
 import Dialog from "./Dialog";
 import DocumentHistory from "./DocumentHistory";
-
-const InputSections = ({ onDoneClick }) => (
-  <InputSectionStyle>
-    <lable>Enter Username</lable>
-    <input id="user-to-share" />
-    <div className="btn" onClick={onDoneClick}>
-      Done
-    </div>
-  </InputSectionStyle>
-);
+import { ShareInput } from "./ShareInput";
 
 export const Buttons = ({ onShareClick, onVarify, isVarifier }) => (
   <ButtonsStyle>
@@ -30,53 +21,46 @@ export const Buttons = ({ onShareClick, onVarify, isVarifier }) => (
   </ButtonsStyle>
 );
 
-function EditSection({ isVarifier }) {
-  const [showSharePopup, setShowSharePopup] = useState(false);
+// function EditSection({ isVarifier }) {
+//   const [showSharePopup, setShowSharePopup] = useState(false);
 
-  const handleShareClick = () => {
-    setShowSharePopup((old) => !old);
-  };
+//   const handleShareClick = () => {
+//     setShowSharePopup((old) => !old);
+//   };
 
-  const handleDone = () => {
-    const userName = document.getElementById("user-to-share");
+//   const onVarify = () => {
+//     alert("varifiing");
+//   };
 
-    alert(`shareing to ${userName.value}`);
-  };
+//   return (
+//     <>
+//       <Dialog
+//         showDialog={showSharePopup}
+//         setShowDialog={setShowSharePopup}
+//         body={<ShareInput onDoneClick={handleDone} />}
+//         header="share your document"
+//       />
+//       <EditSectionStyle>
+//         <DocumentHistory />
+//         <Buttons
+//           onShareClick={handleShareClick}
+//           isVarifier={isVarifier}
+//           onVarify={onVarify}
+//         />
+//       </EditSectionStyle>
+//     </>
+//   );
+// }
 
-  const onVarify = () => {
-    alert("varifiing");
-  };
+// export default EditSection;
 
-  return (
-    <>
-      <Dialog
-        showDialog={showSharePopup}
-        setShowDialog={setShowSharePopup}
-        body={<InputSections onDoneClick={handleDone} />}
-        header="share your document"
-      />
-      <EditSectionStyle>
-        <DocumentHistory />
-        <Buttons
-          onShareClick={handleShareClick}
-          isVarifier={isVarifier}
-          onVarify={onVarify}
-        />
-      </EditSectionStyle>
-    </>
-  );
-}
+// const EditSectionStyle = styledComponents.section`
+//     display: grid;
+//     grid-template-columns: 7fr 1fr;
+//      min-height: 200px;
+//      background: white;
 
-export default EditSection;
-
-const EditSectionStyle = styledComponents.section`
-    display: grid;
-    grid-template-columns: 7fr 1fr;
-     min-height: 200px;
-     background: white;
-
- 
-`;
+// `;
 
 const ButtonsStyle = styledComponents.section`
 
@@ -87,17 +71,5 @@ display : flex;
   width: 100px;
   text-align: center;
 }
-
-`;
-
-const InputSectionStyle = styledComponents.div`
-
-background: #beb5b5;
-display: flex;
-width: 500px;
-justify-content: space-between;
-align-items: center;
-padding: 1rem;
-
 
 `;

@@ -11,6 +11,8 @@ function Issuer(props) {
   const issueDocument = (values) => {
     setLoading(true);
 
+    console.log("fetching...");
+
     fetch(`http://127.0.0.1:5000/issuer/${JSON.stringify(values)}`)
       .then((response) => response.json())
       .then((data) => {

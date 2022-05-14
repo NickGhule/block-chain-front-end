@@ -20,6 +20,7 @@ function Varifier() {
     setSelectedHistoryIndex,
     loading,
     setLoading,
+    user,
   } = useData();
 
   const handleShare = () => {
@@ -27,6 +28,7 @@ function Varifier() {
   };
 
   const fetchData = async () => {
+    console.log("fetching data...");
     var raw = "";
 
     var requestOptions = {
@@ -35,7 +37,10 @@ function Varifier() {
     };
 
     setLoading(true);
-    await fetch("http://127.0.0.1:5000/verifier/chaitanya360/", requestOptions)
+    await fetch(
+      `http://127.0.0.1:5000/verifier/${user.userName}/`,
+      requestOptions
+    )
       .then((response) => response.json())
       .then((result) => {
         const rawData = {};
@@ -71,10 +76,10 @@ function Varifier() {
   const varifyDoc = () => {
     // console.log(selectedDoc);
     setLoading(true);
-    const userName = selectedDoc[0].userName;
+    const selectedDocUserName = selectedDoc[0].userName;
     const docName = selectedDoc[0].documentName;
     fetch(
-      `http://127.0.0.1:5000/verifier/chaitanya360/${userName}/${docName}/verify`
+      `http://127.0.0.1:5000/verifier/${selectedDocUserName}/${docName}/verify`
     )
       .then((response) => response.json())
       .then((data) => {

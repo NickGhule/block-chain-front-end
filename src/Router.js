@@ -10,29 +10,25 @@ function Router(props) {
   const { user } = useData();
   console.log(user);
 
-  const Page = () => {
-    switch (user.toString()) {
-      case "1":
-        return <App />;
-      case "2":
-        return <Issuer />;
-      case "3":
-        return <Varifier />;
-      default:
-        return <App />;
-    }
+  const Pages = {
+    1: <App />,
+    2: <Issuer />,
+    3: <Varifier />,
   };
-  return (
-    <Page />
-    // <HashRouter>
-    //   <Routes>
-    //     <Route path="/" element={<App />} />
-    //     <Route path="/issuer" element={<Issuer />} />
-    //     <Route path="/varifier" element={<Varifier />} />
-    //     <Route path="/auth" element={<Auth />} />
-    //   </Routes>
-    // </HashRouter>
-  );
+
+  return Pages[user.userType];
+
+  // <Page />
+  // <App />
+  // <HashRouter>
+  //   <Routes>
+  //     <Route path="/" element={<App />} />
+  //     <Route path="/issuer" element={<Issuer />} />
+  //     <Route path="/varifier" element={<Varifier />} />
+  //     <Route path="/auth" element={<Auth />} />
+  //   </Routes>
+  // </HashRouter>
+  // );
 }
 
 export default Router;

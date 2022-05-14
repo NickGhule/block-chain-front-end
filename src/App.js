@@ -9,7 +9,8 @@ import { useData } from "./AppContext";
 import DocumentHistory from "./Components/DocumentHistory";
 import { Buttons } from "./Components/EditSection";
 import { parseData } from "./Components/functions";
-import React from "react";
+import Dialog from "./Components/Dialog";
+import { ShareInput } from "./Components/ShareInput";
 
 function App() {
   const {
@@ -20,24 +21,34 @@ function App() {
     setSelectedHistoryIndex,
     loading,
     setLoading,
+    user,
   } = useData();
 
-  const handleShare = () => {
+  const [showDialog, setShowDialog] = useState(false);
+
+  const handleShare = (to) => {
     setLoading(true);
     const from = selectedDoc[0].userName;
-    const to = "chaitanya360";
+    // const to = document.getElementById("user-to-share").value;
+    if (to === "") {
+      alert("Enter username");
+      return;
+    }
+    console.log(to);
     const docName = selectedDoc[0].documentName;
 
     fetch(`http://127.0.0.1:5000/view/${from}/${to}/${docName}/share`)
       .then((response) => response.json())
       .then((data) => {
         setLoading(false);
+        setShowDialog(false);
         if (data.status) alert("share success");
-        else alert("share failed");
-      }).catch((error) => { console.log(error); });
+        else alert(data.msg);
+      });
   };
 
   const fetchData = async () => {
+    console.log("fetching data...");
     setLoading(true);
     var raw = "";
 
@@ -46,7 +57,7 @@ function App() {
       redirect: "follow",
     };
 
-    await fetch("http://127.0.0.1:5000/view/nickghule/", requestOptions)
+    await fetch(`http://127.0.0.1:5000/view/${user.userName}/`, requestOptions)
       .then((response) => response.json())
       .then((result) => {
         setLoading(false);
@@ -71,6 +82,12 @@ function App() {
 
   return (
     <AppStyle>
+      <Dialog
+        header={"Enter username to share"}
+        body={<ShareInput onShareClick={handleShare} />}
+        showDialog={showDialog}
+        setShowDialog={setShowDialog}
+      />
       {loading && (
         <div className="loader-wrapper">
           <span class="loader"></span>
@@ -93,7 +110,7 @@ function App() {
         </div>
         <div className="bottom">
           {selectedDoc && <DocumentHistory />}
-          {selectedDoc && <Buttons onShareClick={handleShare} />}
+          {selectedDoc && <Buttons onShareClick={() => setShowDialog(true)} />}
         </div>
       </div>
     </AppStyle>
