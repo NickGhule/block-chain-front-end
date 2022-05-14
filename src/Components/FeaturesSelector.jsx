@@ -45,10 +45,10 @@ function FeaturesSelector({
           <input id="form1-user-name" />
         </div>
         <div className="row">
-          <div className="label" id="form1-doc-name">
+          <div className="label" >
             Document Name
           </div>
-          <input />
+          <input id="form1-doc-name"/>
         </div>
       </div>
       <div className="label">Enter Document Values</div>

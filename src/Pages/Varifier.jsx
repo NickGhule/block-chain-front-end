@@ -9,6 +9,7 @@ import { useData } from "../AppContext";
 import DocumentHistory from "../Components/DocumentHistory";
 import { Buttons } from "../Components/EditSection";
 import { parseData } from "../Components/functions";
+import React from "react";
 
 function Varifier() {
   const {
@@ -46,6 +47,7 @@ function Varifier() {
           ];
         });
         setLoading(false);
+        setData(rawData);
         console.log(rawData);
         console.log(result);
       })
