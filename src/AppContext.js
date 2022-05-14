@@ -64,6 +64,7 @@ export const AppContextProvider = ({ children }) => {
   const [selectedDoc, setSelectedDoc] = useState(temp_data["test"]);
   const [selectedHistoryIndex, setSelectedHistoryIndex] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [user, setUser] = useState(false);
 
   return (
     <AppContext.Provider
@@ -76,6 +77,8 @@ export const AppContextProvider = ({ children }) => {
         setSelectedHistoryIndex,
         loading,
         setLoading,
+        user,
+        setUser,
       }}
     >
       {children}
@@ -93,6 +96,8 @@ export const useData = () => {
     setSelectedHistoryIndex,
     loading,
     setLoading,
+    user,
+    setUser,
   } = useContext(AppContext);
 
   return {
@@ -104,5 +109,7 @@ export const useData = () => {
     setSelectedHistoryIndex,
     loading,
     setLoading,
+    user,
+    setUser,
   };
 };
